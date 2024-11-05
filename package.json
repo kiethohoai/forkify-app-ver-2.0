@@ -1,0 +1,16 @@
+{
+  "name": "18-forkify-v2",
+  "version": "1.0.0",
+  "description": "Forkify App Ver 2.0\r 001 Section Intro\r 003 Project Overview and Planning (I)",
+  "main": "index.js",
+  "scripts": {
+    "sv": "live-server",
+    "sass": "sass --watch src/sass/main.scss src/css/main.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "sass": "^1.80.6"
+  }
+}
