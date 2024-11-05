@@ -11,7 +11,6 @@ const timeout = function (s) {
 };
 
 // https://forkify-api.herokuapp.com/v2
-
 ///////////////////////////////////////
 
 /* ===== renderSpinner ===== */
@@ -30,11 +29,16 @@ const renderSpinner = function (parentEl) {
 /* ===== showRecipe =====  */
 const showRecipe = async function () {
   try {
-    // Loading recipe (data)
+    // Get the "hash" id
+    const id = window.location.hash.slice(1);
+    console.log(`🚀  id =>`, id);
+    if (!id) return;
+
+    // Render the spinner while loading data
     renderSpinner(recipeContainer);
 
-    const res = await fetch(`${API_URL}/664c8f193e7aa067e94e8706`);
-    // const res = await fetch(`${API_URL}/664c8f193e7aa067e94e8438`);
+    // Loading recipe (data)
+    const res = await fetch(`${API_URL}/${id}`);
     const data = await res.json();
 
     if (!res.ok)
@@ -158,4 +162,10 @@ const showRecipe = async function () {
     console.error(`🚀Error at showRecipe (controll.js) =>`, error);
   }
 };
-showRecipe();
+
+/* Old way
+window.addEventListener('hashchange', showRecipe);
+window.addEventListener('load', showRecipe); */
+
+// New way to load multil events
+['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, showRecipe));
