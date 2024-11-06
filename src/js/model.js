@@ -1,4 +1,5 @@
 import { API_URL } from './config.js';
+import { getJSON } from './helpers.js';
 
 /* === state === */
 export const state = {
@@ -8,11 +9,7 @@ export const state = {
 /* === loadRecipe === */
 export const loadRecipe = async function (id) {
   try {
-    const res = await fetch(`${API_URL}/${id}`);
-    const data = await res.json();
-
-    if (!res.ok)
-      throw Error(`${data.message} ${res.statusText}  ${res.status}`);
+    const data = await getJSON(`${API_URL}/${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
@@ -25,10 +22,8 @@ export const loadRecipe = async function (id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
-
-    console.log(`state.recipe: `, state.recipe);
   } catch (error) {
     console.error(`🚀Error on loadRecipe (model.js) =>`, error);
-    throw error;
+    // throw error;
   }
 };
