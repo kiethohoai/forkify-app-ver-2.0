@@ -23,7 +23,7 @@ export const loadRecipe = async function (id) {
       ingredients: recipe.ingredients,
     };
   } catch (error) {
-    console.error(`🚀Error on loadRecipe (model.js) =>`, error);
-    // throw error;
+    // console.error(`🚀Error on loadRecipe (model.js) =>`, error);
+    throw error;
   }
 };
