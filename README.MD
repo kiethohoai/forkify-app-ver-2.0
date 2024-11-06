@@ -9,4 +9,5 @@ Forkify App Ver 2.0
 010 Helpers and Configuration Files
 011 Event Handlers in MVC Publisher-Subscriber Pattern
 012 Implementing Error and Success Messages
-013 Implementing Search Results - Part 1 (13p)
+013 Implementing Search Results - Part 1
+014 Implementing Search Results - Part 2

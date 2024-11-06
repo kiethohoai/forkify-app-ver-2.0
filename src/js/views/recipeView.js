@@ -1,63 +1,16 @@
-class RecipeView {
+import View from './View.js';
+
+class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
   _data;
   _errorMessage = 'We could not find that recipe. Please try another one!';
   _message = ``;
 
-  render(data) {
-    this._data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, handler));
   }
 
-  renderSpinner() {
-    const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="src/img/icons.svg#icon-loader"></use>
-      </svg>
-    </div>
-  `;
-    this.#clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderError(message) {
-    const markup = `
-      <div class="error">
-        <div>
-          <svg>
-            <use href="src/img/icons.svg#icon-alert-triangle"></use>
-          </svg>
-        </div>
-        <p>${message ? message : this._errorMessage}</p>
-      </div>
-    `;
-    this.#clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderMessage(message) {
-    const markup = `
-      <div class="message">
-        <div>
-          <svg>
-            <use href="src/img/icons.svg#icon-smile"></use>
-          </svg>
-        </div>
-        <p>${message ? message : this._message}</p>
-      </div>
-    `;
-    this.#clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  #clear() {
-    this._parentElement.innerHTML = '';
-  }
-
-  #generateMarkup() {
+  _generateMarkup() {
     return `
         <figure class="recipe__fig">
           <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img"/>
@@ -112,7 +65,7 @@ class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-            ${this._data.ingredients.map((ing) => this.#generateMarkupIngredient(ing)).join('')}
+            ${this._data.ingredients.map((ing) => this._generateMarkupIngredient(ing)).join('')}
           </ul>
         </div>
 
@@ -138,11 +91,7 @@ class RecipeView {
     `;
   }
 
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, handler));
-  }
-
-  #generateMarkupIngredient(ing) {
+  _generateMarkupIngredient(ing) {
     return `
       <li class="recipe__ingredient">
         <svg class="recipe__icon">
