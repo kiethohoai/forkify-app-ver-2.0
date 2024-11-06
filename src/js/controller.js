@@ -1,8 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 
-
-
 /* === controlRecipe === */
 const controlRecipe = async function () {
   try {
@@ -23,9 +21,7 @@ const controlRecipe = async function () {
   }
 };
 
-/* Old way
-window.addEventListener('hashchange', showRecipe);
-window.addEventListener('load', showRecipe); */
-
-// New way to load multil events
-['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, controlRecipe));
+/* === App start === */
+const init = (function name(params) {
+  recipeView.addHandlerRender(controlRecipe);
+})();

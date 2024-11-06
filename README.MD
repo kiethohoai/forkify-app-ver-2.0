@@ -7,3 +7,4 @@ Forkify App Ver 2.0
 008 The MVC Architecture
 009 Refactoring for MVC
 010 Helpers and Configuration Files
+011 Event Handlers in MVC Publisher-Subscriber Pattern
