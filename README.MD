@@ -16,3 +16,4 @@ Forkify App Ver 2.0
 017 Project Planning II
 018 Updating Recipe Servings
 019 Developing a DOM Updating Algorithm
+020 Implementing Bookmarks - Part 1

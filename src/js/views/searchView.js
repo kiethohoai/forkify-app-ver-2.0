@@ -2,9 +2,6 @@ class SearchView {
   _parentElement = document.querySelector('.search');
 
   getQuery() {
-    // Auto Fill "pizza" query for testing
-    this._parentElement.querySelector('.search__field').value = `pizza`;
-
     const query = this._parentElement.querySelector('.search__field').value;
     this._clearInput();
     return query;
