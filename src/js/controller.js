@@ -5,6 +5,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarkView from './views/bookmarkView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 
 /*=== controlRecipe ===*/
 const controlRecipe = async function () {
@@ -97,10 +98,29 @@ const controlBookmarks = function () {
 };
 
 // TODO: controlAddRecipe
-const controlAddRecipe = function (newRecipe) {
-  console.log(`🚀  newRecipe =>`, newRecipe);
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    // Show loading spinner
+    addRecipeView.renderSpinner();
 
-  // Upload the new recipe data
+    // Upload the new recipe data
+    await model.uploadRecipe(newRecipe);
+    console.log(`🚀CHECK  model.state.recipe =>`, model.state.recipe);
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Success message
+    addRecipeView.renderMessage();
+
+    // Close form window
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (error) {
+    console.error(`🚀Error at controlAddRecipe (controller.js) =>`, error);
+    addRecipeView.renderError(error.message);
+  }
 };
 
 /* === App start === */
@@ -114,9 +134,3 @@ const init = function name(params) {
   addRecipeView._addHandlerUpload(controlAddRecipe);
 };
 init();
-
-/* clearBookmarks */
-const clearBookmarks = function () {
-  localStorage.clear('bookmarks');
-};
-// clearBookmarks();
