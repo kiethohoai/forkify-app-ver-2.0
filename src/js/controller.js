@@ -90,11 +90,24 @@ const controlAddBookmark = function () {
   bookmarkView.render(model.state.bookmarks);
 };
 
+/* controlBookmarks */
+const controlBookmarks = function () {
+  bookmarkView.render(model.state.bookmarks);
+};
+
 /* === App start === */
-const init = (function name(params) {
+const init = function name(params) {
+  bookmarkView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
-})();
+};
+init();
+
+/* clearBookmarks */
+const clearBookmarks = function () {
+  localStorage.clear('bookmarks');
+};
+// clearBookmarks();
