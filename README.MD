@@ -20,3 +20,4 @@ Forkify App Ver 2.0
 021 Implementing Bookmarks - Part 2
 022 Storing Bookmarks With localStorage
 023 Project Planning III
+024 Uploading a New Recipe - Part 1

@@ -113,6 +113,5 @@ const init = function () {
   const storage = localStorage.getItem('bookmarks');
   // Data maybe undefine sometime!
   if (storage) state.bookmarks = JSON.parse(storage);
-  console.log(`🚀  state.bookmarks =>`, state.bookmarks);
 };
 init();
