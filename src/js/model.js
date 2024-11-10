@@ -1,5 +1,5 @@
 import { API_KEY, API_URL, RES_PER_PAGE } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 
 /*=== state ===*/
 export const state = {
@@ -32,7 +32,7 @@ const createRecipeObject = function (data) {
 /*=== loadRecipe ===*/
 export const loadRecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}?key=${API_KEY}`);
     state.recipe = createRecipeObject(data);
 
     /* Convert Data
@@ -65,7 +65,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResults = async function (query = 'pizza') {
   try {
     // Fetching & getting data from API
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${API_KEY}`);
 
     // Store data in "state" of Model
     state.search.query = query;
@@ -75,6 +75,7 @@ export const loadSearchResults = async function (query = 'pizza') {
         title: rec.title,
         publisher: rec.publisher,
         image: rec.image_url,
+        ...(rec.key && { key: rec.key }),
       };
     });
   } catch (error) {
@@ -155,9 +156,7 @@ export const uploadRecipe = async function (newRecipe) {
         const ingArr = ing[1].replaceAll(' ', '').split(',');
 
         if (ingArr.length !== 3)
-          throw new Error(
-            `Wrong ingredient format! Please use the correct format.`,
-          );
+          throw new Error(`Wrong ingredient format! Please use the correct format.`);
 
         const [quantity, unit, description] = ingArr;
 
@@ -178,7 +177,7 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
 
-    const data = await sendJSON(`${API_URL}?key=${API_KEY}`, recipe);
+    const data = await AJAX(`${API_URL}?key=${API_KEY}`, recipe);
     state.recipe = createRecipeObject(data);
     addBookmark(state.recipe);
 
